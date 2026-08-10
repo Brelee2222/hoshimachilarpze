@@ -45,7 +45,7 @@ async function interactMessage(message) {
         return;
 
     // 10% of messages are reacted with a penguin
-    if(randomChance(0.1)) await message.react('🐧');
+    if(randomChance(0.33)) await message.react('🐧');
 
     // Check if it's a DM 
     if(!message.guild) return await interactDM(message);
@@ -89,7 +89,7 @@ async function interactDM(message) {
                 return;
             }
 
-            await channel.send(parts.slice(1).join(" "));
+            await channel.send(parts.join(" "));
         } catch(e) {
             console.error(e);
         }
