@@ -3,16 +3,7 @@ const { addMessageWords } = require("./wordFrequencies.js");
 
 const DATA_SET_FOLDER = "messageDataSets";
 
-// const TARGET_USER_ID = '1'; // BeeMovie
-// const TARGET_USER_ID = '2'; // combined
-// const TARGET_USER_ID = '618244797723049987'; // Naze
-// const TARGET_USER_ID = '1534110827572105258'; // Adachi Rei
-// const TARGET_USER_ID = 'ReiRoast' // Rei Roasting
-// const TARGET_USER_ID = '950703223143026738'; // CWill
 const TARGET_USER_ID = '479792413884547072'; // Bre
-// const TARGET_USER_ID = '843270049317650482' // spongebob
-// const TARGET_USER_ID = '828468791671390269' // Argon
-// const TARGET_USER_ID = 'CWillInfection' // CWILL INFECTION
 
 const MESSAGES_FILE = `${DATA_SET_FOLDER}/messages${TARGET_USER_ID}.txt`;
 
@@ -30,7 +21,7 @@ function loadMessageLog() {
 function parseMessage(message) {
     return message
         .split(/\s/)
-        .filter(word => word != "")
+        .filter(word => word.length)
         .map(word => word.toLocaleLowerCase());
 }
 
