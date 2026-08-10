@@ -31,22 +31,6 @@ function addMessageWords(words) {
 }
 
 function generatePhrase(starterWords = []) {
-    // for(let index = 0; index < starterWords.length; index++) {
-    //     let temp = starterWords[index];
-    //     let randomIndex = Math.floor(Math.random() * starterWords.length);
-
-    //     starterWords[index] = starterWords[randomIndex];
-    //     starterWords[randomIndex] = temp;
-    // }
-    // starterWords = starterWords.sort((a, b) => b.length - a.length);
-
-    // for(const starterWord of starterWords) {
-    //     // const usuableWords = Object.keys(rootWords);
-    //     // if(usuableWords.includes(starterWord))
-    //     if(startingWords.includes(starterWord))
-    //         return createPhrase([starterWord]);
-    // }
-
     for(let index = starterWords.length; index >= 1; index--) {
 
         let starterWord = starterWords.slice(-index);
@@ -57,9 +41,6 @@ function generatePhrase(starterWords = []) {
     }
 
     return createPhrase([chooseRootWord(startingWords.map(startWord => rootWords[startWord])).word]);
-
-    // const words = Object.keys(rootWords);
-    // return createPhrase(words[Math.floor(Math.random() * words.length)].split(" "));
 }
 
 function createPhrase(words) {
@@ -69,7 +50,6 @@ function createPhrase(words) {
     
     do {
         let rootWordToUse;
-        // for(let sequenceLength = SEQUENCE_LENGTH; sequenceLength > 0; sequenceLength--) {
         for(let sequenceLength = Math.floor(Math.random() * SEQUENCE_LENGTH) + 1; sequenceLength > 0; sequenceLength--) {
             currentRootWord = rootWords[wordsSequence.slice(-sequenceLength).join(" ")];
 
@@ -82,15 +62,12 @@ function createPhrase(words) {
         if(!rootWordToUse)
             return "I couldn't create a sentence ):";
 
-        // let rootWord = chooseRootWord(rootWordsToUse);
         let rootWord = rootWordToUse;
-        // let rootWord = rootWordsToUse[Math.floor(Math.random() * rootWordsToUse.length)];
 
         let nextWord = rootWord.chooseNextWord().word;
 
         if(nextWord == "")
             break;
-            // continue;
 
         wordsSequence.push(nextWord);
     } while(repsCountdown-- > 0);
@@ -115,7 +92,7 @@ function chooseRootWord(rootWordsToUse) {
 
 module.exports = {
     addMessageWords,
-    rootWords,
     createPhrase,
-    generatePhrase
+    generatePhrase,
+    rootWords
 };

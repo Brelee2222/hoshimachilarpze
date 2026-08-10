@@ -12,6 +12,7 @@ class RootWord {
     addWord(word) {
         this.frequency++;
 
+        // Check if the word is new
         if(!this.nextWords[word])
             this.nextWords[word] = new NextWord(word);
         
@@ -19,11 +20,13 @@ class RootWord {
     }
 
     chooseNextWord() {
+        // Pull the list of next words
         const nextWords = Object.values(this.nextWords);
 
-        const range = nextWords.reduce((sum, word) => sum + word.frequency, 0);
-        const random = Math.floor(Math.random() * range);
+        // Pick a random number
+        const random = Math.floor(Math.random() * nextWords.reduce((sum, word) => sum + word.frequency, 0));
 
+        // Find the word the number landed on
         let wordIndex = 0;
         for(let cummulativeFreq = 0; wordIndex != nextWords.length; wordIndex++) {
             cummulativeFreq += nextWords[wordIndex].frequency;

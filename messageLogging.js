@@ -3,7 +3,7 @@ const { addMessageWords } = require("./wordFrequencies.js");
 
 const DATA_SET_FOLDER = "messageDataSets";
 
-const TARGET_USER_ID = '479792413884547072'; // Bre
+const TARGET_USER_ID = 'Suisei';
 
 const MESSAGES_FILE = `${DATA_SET_FOLDER}/messages${TARGET_USER_ID}.txt`;
 
