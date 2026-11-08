@@ -3,8 +3,7 @@ const { Client, GatewayIntentBits } = require('discord.js');
 const { processMessageContent, TARGET_USER_ID } = require("./messageLogging.js");
 
 const CHANNEL_IDS = [
-    '1525734371406118965',
-    '1525735701163802644'
+    '989701186548564028'
 ];
 
 const client = new Client({
@@ -18,7 +17,7 @@ const client = new Client({
 client.on("clientReady", async () => {
     const options = { limit : 100 };
 
-    const guild = await client.guilds.fetch('1525734370827046912');
+    const guild = await client.guilds.fetch('953764435661570148');
 
     for(const channelId of CHANNEL_IDS) {
         const channel = await guild.channels.fetch(channelId);
@@ -38,7 +37,7 @@ client.on("clientReady", async () => {
                 let content = message[1].content;
 
                 // if(content.length == 0 || content.includes("test") || content.includes("<@1535508353013518386>"))
-                if(content.length == 0 || content.includes("<@1535508353013518386>"))
+                if(content.length == 0 || content.includes(`<@${client.user.id}}>`))
                     continue;
 
                 console.log(content);

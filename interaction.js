@@ -1,7 +1,7 @@
 const 
     { client } = require("./client.js"),
     { generatePhrase, rootWords } = require('./wordFrequencies.js'),
-    { TARGET_USER_ID } = require("./messageLogging.js");
+    { TARGET_USER_ID, processMessageContent } = require("./messageLogging.js");
 
 const 
     // Who controls the bot
@@ -10,6 +10,7 @@ const
     // Durations for when it replies
     TYPING_DURATION = 3000,
     REPLY_TIME_BEFORE_DELETE = 300000,
+    DELETE_MESSAGES = false;
 
     // Line enders
     NEW_LINE_ENDERS = [
@@ -18,7 +19,7 @@ const
         " 💗",
         // " 😘",
         " >W<",
-        " 😉",
+        // " 😉",
         " 😭",
         // "?",
         ""
@@ -44,8 +45,8 @@ async function interactMessage(message) {
     if(message.author.bot)
         return;
 
-    // 10% of messages are reacted with a penguin
-    if(randomChance(0.33)) await message.react('🐧');
+    // a percentage of messages are reacted with a penguin
+    if(randomChance(0.1)) await message.react('🐧');
 
     // Check if it's a DM 
     if(!message.guild) return await interactDM(message);
@@ -66,6 +67,7 @@ async function interactMessage(message) {
 
 async function interactDM(message) {
     console.log("It's a DM!");
+    console.log(`${message.author.username}: ${message.content}`);
 
     // Verify message was sent by owner
     if(message.author.id == OWNER_ID) {
@@ -75,6 +77,16 @@ async function interactDM(message) {
             .filter(part => part.length); // Get rid of double spaces
 
         try {
+            if(parts[0] == 'u') {
+                parts.shift();
+
+                // get the message to reply to
+                (await client.users.fetch(parts.shift()))
+                .send(parts.join(" "));
+
+                return;
+            }
+
             // Get the channel
             let channel = await client.channels.fetch(parts.shift());
 
@@ -115,6 +127,9 @@ async function sendPhrase(message) {
 
     // Finally, reply with a message
     const reply = await message.reply(messageReply);        
+
+    if(!DELETE_MESSAGES)
+        return;
 
     await wait(REPLY_TIME_BEFORE_DELETE);
     
